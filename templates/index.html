@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block body %}
+        <h1>BinaryBits - The online bank platform for everyone</h1>
+        <h2>Login</h2>
+        <form action="/login" method="post">
+            <input type="text" name="username" placeholder="Username" value="{{username}}"><br>
+            <input type="password" name="password" placeholder="Password" value="{{password}}"><br>
+            <p class="error">{{ error }}</p>
+            <input type="submit" value="Login">
+        </form>
+
+        Don't have an account? Sign up <a href="/signup">here</a>.
+{% endblock %}

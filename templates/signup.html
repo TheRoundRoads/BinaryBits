@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1>Register your account:</h1>
+
+    <form action="/signup" method="post">
+        <input type="text" name="username" placeholder="Username" value="{{username}}" autocomplete="off"><br>
+        <p class="error">{{ message1 }}</p>
+        <input type="password" name="password" placeholder="Password" value="{{password}}"><br>
+        <p class="error">{{ message2 }}</p>
+        <input type="password" name="confirm" placeholder="Confirm Password" value="{{confirm}}"><br>
+        <p class="error">{{ message3 }}</p>
+        <input type="submit" value="Login">
+    </form>
+{% endblock %}

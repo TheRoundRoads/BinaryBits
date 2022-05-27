@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1>BinaryBits - The online bank platform for everyone</h1>
+
+    Welcome {{ username }}!<br>
+    What would you like to do today? <br>
+
+    <!-- Topup function -->
+    <div>
+        <h2>Current balance: {{ balance }}</h2>
+        <form action="/login" method="post">
+            <label>Top up balance (At most 2000):</label>
+            <input type="number" name="topup" placeholder="Topup amount">
+            <input type="hidden" name="username" value="{{username}}">
+            <input type="hidden" name="password" value="{{password}}">
+            <input type="submit" value="Top up">
+        </form>
+        <p class="error">{{ balanceError }}</p>
+    </div>
+
+    <!-- Transaction function -->
+    <div>
+        <h2>Transaction:</h2>
+
+        <form action="/login" method="post">
+            <label>User you would like to transfer money to:</label><br>
+            <input type="text" name="otherUser" placeholder="Username of receiver" value="{{formData[0]}}"><br>
+            <label>Transaction amount (At most 2000):</label><br>
+            <input type="number" name="transactionAmount" placeholder="Transaction Amount" value="{{formData[1]}}"><br>
+            <label>Confirm password:</label><br>
+            <input type="password" name="checkPassword" placeholder="Enter your password" value="{{formData[2]}}"><br>
+            <input type="hidden" name="username" value="{{username}}">
+            <input type="hidden" name="password" value="{{password}}">
+            <input type="hidden" name="transaction" value="True">
+            <input type="submit" value="Transfer Money">
+        </form>
+        <p class="error">{{ transactionError }}</p>
+    </div>
+
+    <a href="/">Log out</a>
+{% endblock %}
