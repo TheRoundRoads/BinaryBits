@@ -21,7 +21,7 @@
 
     <!-- Transaction function -->
     <div>
-        <h2>Transaction:</h2>
+        <h2>Transfer money:</h2>
 
         <form action="/login" method="post">
             <label>User you would like to transfer money to:</label><br>
@@ -36,6 +36,45 @@
             <input type="submit" value="Transfer Money">
         </form>
         <p class="error">{{ transactionError }}</p>
+    </div>
+
+    <!-- Display transactions -->
+    <div>
+        <h2>Transaction History</h2>
+        
+        <h3>Transactions sent</h3>
+        <table>
+            <tr>
+                <th>DateTime (YYYY-MM-DD HH:MM:SS)</th>
+                <th>Sender</th>
+                <th>Receiver</th>
+                <th>Transaction Amount</th>
+            </tr>
+            {% for data in sent %}
+                <tr>
+                    {% for i in range(4) %}
+                        <th>{{data[i]}}</th>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+
+        <h3>Transactions Received</h3>
+        <table>
+            <tr>
+                <th>DateTime (YYYY-MM-DD HH:MM:SS)</th>
+                <th>Sender</th>
+                <th>Receiver</th>
+                <th>Transaction Amount</th>
+            </tr>
+            {% for data in received %}
+                <tr>
+                    {% for i in range(4) %}
+                        <th>{{data[i]}}</th>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
     </div>
 
     <a href="/">Log out</a>

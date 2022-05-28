@@ -21,3 +21,9 @@ div {
     margin-top: 8px;
     padding: 5px;
 }
+
+table, th, td {
+    border: 1px solid;
+    margin: 4px;
+    padding: 5px;
+  }

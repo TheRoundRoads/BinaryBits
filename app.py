@@ -8,7 +8,6 @@ import datetime
 # Start connection to sqlite server
 def get_db_connection():
     conn = sqlite3.connect('databases/db.sqlite')
-    conn.row_factory = sqlite3.Row
     return conn, conn.cursor()
 
 # MD5 hash for password
@@ -89,13 +88,28 @@ def user():
             for i, ele in enumerate(formData):
                 if ele == None or transactionError == "":
                     formData[i] = ""
+                    
+            # Get 5 most recent transactions for sent and received
+            selections_sent = list(cursor.execute("SELECT * FROM transactions WHERE sender=? ORDER BY datetime DESC LIMIT 5", (account,)))
+            sent = []
+            for i, selection in enumerate(selections_sent):
+                receiver = list(cursor.execute("SELECT username FROM users WHERE id=?", (selection[3],)))[0][0]
+                sent.append((selection[1], name, receiver, selection[4]))
+                
+            selections_received = list(cursor.execute("SELECT * FROM transactions WHERE receiver=? ORDER BY datetime DESC LIMIT 5", (account,)))
+            received = []
+            for i, selection in enumerate(selections_received):
+                sender = list(cursor.execute("SELECT username FROM users WHERE id=?", (selection[2],)))[0][0]
+                received.append((selection[1], sender, name, selection[4]))
+            
             
             return render_template("login.html",
                                     username=name, password=pw, 
                                     account=account, balance=balance,
                                     balanceError=balanceError,
                                     transactionError=transactionError,
-                                    formData=formData)
+                                    formData=formData,
+                                    sent=sent, received=received)
             
         else:
             return render_template("index.html", error="Invalid username or password",
